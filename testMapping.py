@@ -7,16 +7,13 @@ def isOneToOne(s1, s2):
     s2_used = [-1]*256
     for i in range(len(s1)):
         if mappings.get(s1[i]) is None: #current char not in mapping
-            # check for available mappings in s2
-            #if s2[i] is mapped to something else, False
-            #if not, then map s1[i] to s2[i] and add s2[i] to list
-            if s2_used[ord(s1[i])] is -1:
-                # mapping available
+            if s2_used[ord(s1[i])] is -1: # mapping available
                 mappings[s1[i]] = s2[i]
-                s2_used[ord(s1[i])] = s1[i]
-            else:
+                s2_used[ord(s1[i])] = s2[i]
+            else: # mapping unavailable
                 return False
         else: # found a mapping
-            #check to see if
-            if mappings.get(s1[i]) is not s2[i]:
+            if mappings.get(s1[i]) is not s2_used[ord(s1[i])]:
+                #if a mapping in s1 is mapped to two places
                 return False
+    return True
